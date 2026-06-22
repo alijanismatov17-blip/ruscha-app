@@ -5,698 +5,717 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>Ruscha — Rus tilini o'rgan</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Lora:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg: #111827;
-  --surface: #1f2937;
-  --surface2: #374151;
-  --border: #374151;
-  --border2: #4b5563;
-  --text: #f9fafb;
-  --muted: #9ca3af;
-  --hint: #6b7280;
-  --green: #58cc02;
-  --green-dark: #46a302;
-  --green-glow: rgba(88,204,2,0.18);
-  --blue: #1cb0f6;
-  --blue-dark: #0a91d3;
-  --purple: #ce82ff;
-  --purple-dark: #a855f7;
-  --red: #ff4b4b;
-  --orange: #ff9600;
-  --yellow: #ffc800;
+  --bg: #ffffff;
+  --surface: #f9f8f6;
+  --border: #e8e5e0;
+  --text: #1a1a1a;
+  --muted: #6b6b6b;
+  --hint: #9a9a9a;
+  --orange: #ff6b2b;
+  --orange-dark: #e55a20;
+  --orange-light: #fff3ee;
+  --lilac: #e8e0f7;
+  --lilac-dark: #d4c8f0;
+  --lilac-text: #2d1b69;
+  --green: #1a7a4a;
+  --green-light: #e6f4ed;
   --radius: 16px;
   --radius-sm: 10px;
-  --radius-xs: 7px;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+  --shadow: 0 4px 16px rgba(0,0,0,0.09);
 }
 * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 html { scroll-behavior: smooth; }
 body {
-  font-family: 'Nunito', sans-serif;
+  font-family: 'Inter', sans-serif;
   background: var(--bg);
   color: var(--text);
   min-height: 100vh;
-  overflow-x: hidden;
 }
 
 /* ── HEADER ── */
 header {
-  background: var(--surface);
-  border-bottom: 2px solid var(--border);
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
   position: sticky; top: 0; z-index: 100;
-  padding: 0 1.25rem;
+  padding: 0 2rem;
   display: flex; align-items: center; justify-content: space-between;
-  height: 58px;
+  height: 62px;
 }
 .logo {
-  font-size: 1.3rem; font-weight: 900;
-  color: var(--green);
-  letter-spacing: -0.02em;
-  display: flex; align-items: center; gap: 6px;
+  font-family: 'Lora', serif;
+  font-size: 1.35rem; font-weight: 700;
+  color: var(--orange);
+  letter-spacing: -0.01em;
+  display: flex; align-items: center; gap: 2px;
 }
-.logo-flag { font-size: 1.2rem; }
-.header-pills { display: flex; gap: 8px; }
-.hpill {
+.logo-plus { font-size: 1.1rem; font-weight: 600; }
+.top-nav { display: flex; gap: 2px; align-items: center; }
+.tnav-item {
+  padding: 8px 16px;
+  font-size: 14px; font-weight: 600; color: var(--muted);
+  cursor: pointer; border: none; background: none;
+  border-radius: var(--radius-sm);
+  transition: all 0.15s; font-family: 'Inter', sans-serif;
+  position: relative;
+}
+.tnav-item:hover { color: var(--text); background: var(--surface); }
+.tnav-item.active { color: var(--text); }
+.tnav-item.active::after {
+  content: '';
+  position: absolute; bottom: -1px; left: 16px; right: 16px;
+  height: 2px; background: var(--text); border-radius: 99px;
+}
+.header-right { display: flex; align-items: center; gap: 10px; }
+.streak-pill {
   display: flex; align-items: center; gap: 5px;
-  background: var(--surface2);
-  border: 2px solid var(--border2);
+  padding: 6px 14px;
+  border: 1.5px solid var(--border);
   border-radius: 99px;
-  padding: 5px 12px;
-  font-size: 13px; font-weight: 700;
+  font-size: 13px; font-weight: 700; color: var(--muted);
 }
-.hpill .icon { font-size: 15px; }
+.streak-pill .fire { font-size: 15px; }
 
-/* ── BOTTOM NAV ── */
+/* ── BOTTOM NAV (mobile) ── */
 .bottom-nav {
   display: none;
   position: fixed; bottom: 0; left: 0; right: 0; z-index: 200;
-  background: var(--surface);
-  border-top: 2px solid var(--border);
+  background: var(--bg);
+  border-top: 1px solid var(--border);
   padding: 6px 0 max(6px, env(safe-area-inset-bottom));
   grid-template-columns: repeat(5, 1fr);
 }
 .bnav-item {
   display: flex; flex-direction: column; align-items: center;
   gap: 3px; padding: 6px 4px;
-  font-size: 10px; font-weight: 700; color: var(--hint);
+  font-size: 10px; font-weight: 600; color: var(--hint);
   cursor: pointer; border: none; background: none;
-  transition: color 0.15s; font-family: 'Nunito', sans-serif;
+  transition: color 0.15s; font-family: 'Inter', sans-serif;
 }
-.bnav-item .bicon { font-size: 22px; transition: transform 0.2s; }
-.bnav-item.active { color: var(--green); }
-.bnav-item.active .bicon { transform: scale(1.15); }
+.bnav-icon { font-size: 20px; }
+.bnav-item.active { color: var(--orange); }
 
 /* ── LAYOUT ── */
 .layout {
-  display: flex;
-  max-width: 1060px;
+  max-width: 860px;
   margin: 0 auto;
-  padding: 1.5rem 1.25rem;
-  gap: 1.5rem;
+  padding: 2.5rem 2rem;
 }
-.sidebar {
-  width: 210px; flex-shrink: 0;
-  position: sticky; top: 74px;
-  height: fit-content;
-}
-.snav {
-  background: var(--surface);
-  border: 2px solid var(--border);
-  border-radius: var(--radius);
-  overflow: hidden;
-}
-.snav-item {
-  display: flex; align-items: center; gap: 10px;
-  padding: 13px 16px;
-  font-size: 14px; font-weight: 700; color: var(--muted);
-  cursor: pointer; border: none; background: none; width: 100%;
-  border-bottom: 2px solid var(--border);
-  transition: all 0.15s; text-align: left;
-  font-family: 'Nunito', sans-serif;
-}
-.snav-item:last-child { border-bottom: none; }
-.snav-item .sicon { font-size: 18px; }
-.snav-item:hover { background: var(--surface2); color: var(--text); }
-.snav-item.active { color: var(--green); background: rgba(88,204,2,0.08); }
-.snav-badge {
-  margin-left: auto;
-  background: var(--green); color: #111;
-  font-size: 11px; font-weight: 800;
-  padding: 2px 8px; border-radius: 99px;
-}
-
-/* ── STREAK CARD ── */
-.streak-card {
-  background: linear-gradient(135deg, #1f2937 0%, #1a2535 100%);
-  border: 2px solid var(--orange);
-  border-radius: var(--radius);
-  padding: 14px 16px;
-  margin-top: 12px;
-  text-align: center;
-}
-.streak-fire { font-size: 2rem; }
-.streak-num { font-size: 1.6rem; font-weight: 900; color: var(--orange); }
-.streak-label { font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
-
-/* ── MAIN ── */
-.main { flex: 1; min-width: 0; }
-.page { display: none; }
+.page { display: none; animation: fadeUp 0.25s ease both; }
 .page.active { display: block; }
-
-/* ── XP BAR ── */
-.xp-section { margin-bottom: 1.5rem; }
-.xp-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
-.xp-label { font-size: 13px; font-weight: 700; color: var(--muted); }
-.xp-val { font-size: 13px; font-weight: 800; color: var(--green); }
-.xp-track {
-  height: 14px; background: var(--surface2);
-  border-radius: 99px; overflow: hidden;
-  border: 2px solid var(--border2);
-}
-.xp-fill {
-  height: 100%;
-  background: linear-gradient(90deg, var(--green-dark), var(--green));
-  border-radius: 99px;
-  transition: width 0.6s cubic-bezier(0.34,1.56,0.64,1);
-  position: relative;
-}
-.xp-fill::after {
-  content: '';
-  position: absolute; right: 0; top: 0; bottom: 0;
-  width: 6px;
-  background: rgba(255,255,255,0.4);
-  border-radius: 99px;
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-/* ── STATS ── */
-.stats-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-bottom: 1.5rem; }
-.stat-card {
-  background: var(--surface);
-  border: 2px solid var(--border);
-  border-radius: var(--radius-sm);
-  padding: 14px 12px; text-align: center;
-  transition: transform 0.15s, border-color 0.15s;
+/* ── HOME PAGE ── */
+.greeting {
+  font-family: 'Lora', serif;
+  font-size: 2rem; font-weight: 700;
+  color: var(--text); margin-bottom: 0.25rem;
 }
-.stat-card:hover { transform: translateY(-2px); }
-.stat-num { font-size: 24px; font-weight: 900; line-height: 1; }
-.stat-label { font-size: 11px; font-weight: 700; color: var(--muted); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.06em; }
-.stat-card.green { border-color: var(--green); }
-.stat-card.green .stat-num { color: var(--green); }
-.stat-card.blue { border-color: var(--blue); }
-.stat-card.blue .stat-num { color: var(--blue); }
-.stat-card.orange { border-color: var(--orange); }
-.stat-card.orange .stat-num { color: var(--orange); }
+.greeting-sub { font-size: 14px; color: var(--muted); font-weight: 500; margin-bottom: 1.75rem; }
 
-/* ── LESSON GRID ── */
-.section-title {
-  font-size: 11px; font-weight: 800; color: var(--hint);
-  text-transform: uppercase; letter-spacing: 0.1em;
-  margin-bottom: 10px;
-}
-.lesson-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(155px,1fr)); gap: 10px; margin-bottom: 1.75rem; }
-.lesson-card {
-  background: var(--surface);
-  border: 2px solid var(--border);
-  border-bottom: 4px solid var(--border2);
+/* Orange banner */
+.promo-banner {
+  background: var(--orange);
   border-radius: var(--radius);
-  padding: 18px 14px 16px;
+  padding: 16px 20px;
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 2rem;
   cursor: pointer;
-  transition: all 0.15s;
-  position: relative; overflow: hidden;
+  transition: background 0.15s;
 }
-.lesson-card:hover { transform: translateY(-3px); border-color: var(--border2); }
-.lesson-card:active { transform: translateY(0); border-bottom-width: 2px; }
-.lesson-card.done { border-color: var(--green); border-bottom-color: var(--green-dark); }
-.lesson-card.done::after {
-  content: '✓';
-  position: absolute; top: 10px; right: 12px;
-  font-size: 14px; font-weight: 900; color: var(--green);
+.promo-banner:hover { background: var(--orange-dark); }
+.promo-left { display: flex; align-items: center; gap: 12px; }
+.promo-icon { font-size: 1.3rem; }
+.promo-text { font-size: 14px; font-weight: 700; color: white; }
+.promo-btn {
+  padding: 8px 18px;
+  background: white; color: var(--text);
+  border-radius: 99px; font-size: 13px; font-weight: 700;
+  border: none; cursor: pointer; white-space: nowrap;
+  font-family: 'Inter', sans-serif;
 }
-.lcard-emoji { font-size: 2rem; margin-bottom: 10px; display: block; }
-.lcard-title { font-size: 15px; font-weight: 800; color: var(--text); }
-.lcard-sub { font-size: 12px; color: var(--muted); margin-top: 3px; font-weight: 600; }
-.lcard-count {
-  display: inline-block; margin-top: 10px;
-  font-size: 11px; font-weight: 700;
-  background: var(--surface2); color: var(--muted);
-  padding: 3px 9px; border-radius: 99px;
-}
-.lesson-card.done .lcard-count { background: var(--green-glow); color: var(--green); }
 
-/* ── QUICK ACTIONS ── */
-.quick-row { display: flex; flex-direction: column; gap: 8px; margin-bottom: 1.5rem; }
-.quick-btn {
-  display: flex; align-items: center; gap: 12px;
-  padding: 14px 16px;
-  background: var(--surface);
-  border: 2px solid var(--border);
-  border-bottom: 4px solid var(--border2);
-  border-radius: var(--radius-sm);
-  font-size: 14px; font-weight: 700; color: var(--text);
-  cursor: pointer; transition: all 0.15s;
-  font-family: 'Nunito', sans-serif; text-align: left;
+/* Unit heading */
+.unit-label { font-size: 12px; font-weight: 600; color: var(--muted); margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.07em; }
+.unit-title {
+  font-family: 'Lora', serif;
+  font-size: 1.4rem; font-weight: 700;
+  color: var(--text); margin-bottom: 1.25rem;
 }
-.quick-btn:hover { transform: translateY(-2px); border-color: var(--border2); }
-.quick-btn:active { transform: translateY(0); border-bottom-width: 2px; }
-.quick-btn .qicon { font-size: 20px; }
-.quick-btn .qarrow { margin-left: auto; color: var(--hint); font-size: 18px; }
-.quick-btn.green { border-color: var(--green); border-bottom-color: var(--green-dark); }
-.quick-btn.blue { border-color: var(--blue); border-bottom-color: var(--blue-dark); }
+
+/* Lesson cards — Babbel style */
+.lesson-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 2rem; }
+.lesson-card {
+  background: var(--lilac);
+  border-radius: var(--radius);
+  padding: 22px 22px 18px;
+  cursor: pointer;
+  transition: all 0.18s;
+  position: relative; overflow: hidden;
+  min-height: 170px;
+  display: flex; flex-direction: column; justify-content: space-between;
+}
+.lesson-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+.lesson-card.done { background: var(--green-light); }
+.lesson-card.locked { opacity: 0.55; cursor: not-allowed; }
+.lc-label { font-size: 12px; font-weight: 600; color: rgba(0,0,0,0.45); margin-bottom: 6px; }
+.lc-title {
+  font-family: 'Lora', serif;
+  font-size: 1.2rem; font-weight: 700;
+  color: var(--lilac-text); line-height: 1.3;
+}
+.lesson-card.done .lc-title { color: var(--green); }
+.lc-bottom { display: flex; align-items: center; justify-content: space-between; margin-top: 14px; }
+.lc-emoji { font-size: 2rem; }
+.start-btn {
+  padding: 9px 20px;
+  background: var(--text); color: white;
+  border-radius: 99px; font-size: 13px; font-weight: 700;
+  border: none; cursor: pointer; font-family: 'Inter', sans-serif;
+  transition: background 0.15s;
+}
+.start-btn:hover { background: #333; }
+.lesson-card.done .start-btn { background: var(--green); }
+.done-check {
+  position: absolute; top: 14px; right: 16px;
+  width: 26px; height: 26px; border-radius: 50%;
+  background: var(--green); color: white;
+  font-size: 13px; font-weight: 700;
+  display: none; align-items: center; justify-content: center;
+}
+.lesson-card.done .done-check { display: flex; }
+
+/* Quick action row */
+.quick-row { display: flex; gap: 12px; flex-wrap: wrap; }
+.quick-card {
+  flex: 1; min-width: 200px;
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px 18px;
+  cursor: pointer; transition: all 0.15s;
+  display: flex; align-items: center; gap: 12px;
+  font-size: 14px; font-weight: 600; color: var(--text);
+  font-family: 'Inter', sans-serif; border: none;
+  border: 1.5px solid var(--border);
+}
+.quick-card:hover { box-shadow: var(--shadow-sm); transform: translateY(-1px); border-color: #ccc; }
+.qc-icon { font-size: 1.5rem; }
+.qc-arrow { margin-left: auto; color: var(--hint); font-size: 1.1rem; }
 
 /* ── ALPHABET ── */
-.alpha-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(62px,1fr)); gap: 8px; }
+.page-title {
+  font-family: 'Lora', serif;
+  font-size: 1.6rem; font-weight: 700; margin-bottom: 0.4rem;
+}
+.page-sub { font-size: 14px; color: var(--muted); margin-bottom: 1.5rem; font-weight: 500; }
+.alpha-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(64px,1fr)); gap: 8px; }
 .alpha-cell {
-  background: var(--surface);
-  border: 2px solid var(--border);
-  border-bottom: 4px solid var(--border2);
+  background: var(--lilac);
   border-radius: var(--radius-sm);
-  padding: 12px 6px; text-align: center;
+  padding: 13px 6px; text-align: center;
+  cursor: pointer; transition: all 0.15s;
+  border: 2px solid transparent;
+}
+.alpha-cell:hover { border-color: var(--orange); transform: translateY(-2px); box-shadow: var(--shadow-sm); }
+.alpha-cell:active { transform: translateY(0); }
+.alpha-ru { font-family: 'Lora', serif; font-size: 20px; font-weight: 700; color: var(--lilac-text); line-height: 1; }
+.alpha-sound { font-size: 11px; font-weight: 600; color: var(--muted); margin-top: 5px; }
+
+/* ── LESSONS LIST ── */
+.lessons-list { display: flex; flex-direction: column; gap: 10px; }
+.lesson-row {
+  display: flex; align-items: center; gap: 16px;
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 16px 18px;
   cursor: pointer; transition: all 0.15s;
 }
-.alpha-cell:hover { border-color: var(--purple); transform: translateY(-2px); }
-.alpha-cell:active { transform: translateY(0); border-bottom-width: 2px; }
-.alpha-ru { font-size: 20px; font-weight: 900; color: var(--text); line-height: 1; }
-.alpha-sound { font-size: 11px; font-weight: 700; color: var(--muted); margin-top: 4px; }
+.lesson-row:hover { border-color: #ccc; box-shadow: var(--shadow-sm); transform: translateY(-1px); }
+.lr-emoji { font-size: 1.6rem; flex-shrink: 0; }
+.lr-body { flex: 1; }
+.lr-title { font-size: 15px; font-weight: 700; color: var(--text); }
+.lr-sub { font-size: 13px; color: var(--muted); margin-top: 2px; }
+.lr-badge {
+  padding: 4px 12px; border-radius: 99px;
+  font-size: 12px; font-weight: 700;
+  background: var(--orange-light); color: var(--orange);
+}
+.lr-badge.done { background: var(--green-light); color: var(--green); }
+.lr-arrow { color: var(--hint); font-size: 1.2rem; flex-shrink: 0; }
 
-/* ── WORD LIST ── */
-.words-header { display: flex; align-items: center; gap: 10px; margin-bottom: 1.25rem; flex-wrap: wrap; }
-.words-header h2 { font-size: 1.2rem; font-weight: 900; }
+/* ── WORDS PAGE ── */
+.words-header { display: flex; align-items: center; gap: 12px; margin-bottom: 1.5rem; flex-wrap: wrap; }
+.words-header .page-title { margin-bottom: 0; font-size: 1.3rem; }
 .back-btn {
   display: flex; align-items: center; gap: 5px;
-  padding: 7px 14px;
-  background: var(--surface); border: 2px solid var(--border);
-  border-radius: var(--radius-xs); font-size: 13px; font-weight: 700;
-  color: var(--muted); cursor: pointer; transition: all 0.15s;
-  font-family: 'Nunito', sans-serif;
+  padding: 8px 15px;
+  background: var(--surface); border: 1.5px solid var(--border);
+  border-radius: 99px; font-size: 13px; font-weight: 600;
+  color: var(--muted); cursor: pointer; transition: all 0.12s;
+  font-family: 'Inter', sans-serif;
 }
-.back-btn:hover { border-color: var(--border2); color: var(--text); }
+.back-btn:hover { border-color: #ccc; color: var(--text); }
 .start-quiz-btn {
-  margin-left: auto; padding: 10px 20px;
-  background: var(--green); color: #111;
-  border: none; border-bottom: 4px solid var(--green-dark);
-  border-radius: var(--radius-xs); font-size: 14px; font-weight: 800;
-  cursor: pointer; font-family: 'Nunito', sans-serif; transition: all 0.15s;
+  margin-left: auto; padding: 10px 22px;
+  background: var(--orange); color: white;
+  border: none; border-radius: 99px;
+  font-size: 14px; font-weight: 700;
+  cursor: pointer; font-family: 'Inter', sans-serif;
+  transition: background 0.15s;
 }
-.start-quiz-btn:hover { transform: translateY(-2px); }
-.start-quiz-btn:active { transform: translateY(0); border-bottom-width: 2px; }
-.word-list {
-  background: var(--surface);
-  border: 2px solid var(--border);
-  border-radius: var(--radius);
-  overflow: hidden;
-}
+.start-quiz-btn:hover { background: var(--orange-dark); }
+.word-list { border: 1.5px solid var(--border); border-radius: var(--radius); overflow: hidden; }
 .word-row {
   display: flex; align-items: center; gap: 14px;
-  padding: 14px 18px;
-  border-bottom: 2px solid var(--border);
-  transition: background 0.12s; cursor: default;
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--border);
+  transition: background 0.1s;
 }
 .word-row:last-child { border-bottom: none; }
-.word-row:hover { background: var(--surface2); }
+.word-row:hover { background: var(--surface); }
 .word-num {
-  width: 26px; height: 26px; border-radius: 50%;
-  background: var(--surface2); color: var(--hint);
-  font-size: 11px; font-weight: 800;
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0;
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--lilac); color: var(--lilac-text);
+  font-size: 12px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
 }
-.word-ru { font-size: 16px; font-weight: 800; min-width: 150px; color: var(--text); }
-.word-uz { font-size: 13px; font-weight: 600; color: var(--muted); }
+.word-ru { font-size: 16px; font-weight: 700; min-width: 160px; color: var(--text); }
+.word-uz { font-size: 14px; color: var(--muted); font-weight: 500; }
 .word-tag {
   margin-left: auto; font-size: 11px; font-weight: 700;
   padding: 3px 10px; border-radius: 99px;
-  background: rgba(88,204,2,0.12); color: var(--green);
+  background: var(--orange-light); color: var(--orange);
   white-space: nowrap; flex-shrink: 0;
 }
 
 /* ── QUIZ ── */
-.quiz-wrap { max-width: 540px; }
+.quiz-wrap { max-width: 560px; margin: 0 auto; }
 .quiz-topic-grid { display: flex; flex-direction: column; gap: 8px; }
 .qtopic-btn {
   display: flex; align-items: center; gap: 12px;
-  padding: 14px 18px;
-  background: var(--surface); border: 2px solid var(--border);
-  border-bottom: 4px solid var(--border2);
-  border-radius: var(--radius-sm); font-size: 14px; font-weight: 700;
-  color: var(--text); cursor: pointer; transition: all 0.15s;
-  font-family: 'Nunito', sans-serif;
+  padding: 15px 18px;
+  background: var(--bg); border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 14px; font-weight: 600; color: var(--text);
+  cursor: pointer; transition: all 0.15s;
+  font-family: 'Inter', sans-serif;
 }
-.qtopic-btn:hover { transform: translateY(-2px); border-color: var(--green); }
-.qtopic-btn:active { transform: translateY(0); border-bottom-width: 2px; }
-.qtopic-btn .qtarrow { margin-left: auto; color: var(--hint); }
+.qtopic-btn:hover { border-color: var(--orange); background: var(--orange-light); }
+.qtopic-arrow { margin-left: auto; color: var(--hint); }
 
-.quiz-prog-row { display: flex; gap: 6px; margin-bottom: 1.25rem; }
-.quiz-prog-dot {
-  flex: 1; height: 8px; border-radius: 99px;
-  background: var(--surface2); border: 2px solid var(--border2);
-  transition: all 0.3s;
-}
-.quiz-prog-dot.done { background: var(--green); border-color: var(--green-dark); }
-.quiz-prog-dot.wrong { background: var(--red); border-color: #cc3333; }
-.quiz-prog-dot.current { background: var(--blue); border-color: var(--blue-dark); }
+/* Progress bar (quiz) */
+.quiz-prog-wrap { margin-bottom: 1.5rem; }
+.quiz-prog-info { display: flex; justify-content: space-between; font-size: 12px; font-weight: 600; color: var(--muted); margin-bottom: 8px; }
+.quiz-prog-track { height: 8px; background: var(--surface); border-radius: 99px; border: 1px solid var(--border); overflow: hidden; }
+.quiz-prog-fill { height: 100%; background: var(--orange); border-radius: 99px; transition: width 0.4s ease; }
 
 .quiz-card {
-  background: var(--surface);
-  border: 2px solid var(--border);
+  background: var(--bg);
+  border: 1.5px solid var(--border);
   border-radius: var(--radius);
-  padding: 28px 22px;
-  margin-bottom: 14px;
+  padding: 32px 28px 24px;
+  margin-bottom: 16px;
+  box-shadow: var(--shadow-sm);
 }
-.quiz-tag { font-size: 11px; font-weight: 800; color: var(--hint); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px; }
-.quiz-q { font-size: 26px; font-weight: 900; margin-bottom: 24px; }
+.quiz-eyebrow { font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px; }
+.quiz-q {
+  font-family: 'Lora', serif;
+  font-size: 2rem; font-weight: 700; margin-bottom: 28px; color: var(--text);
+}
 .quiz-opts { display: flex; flex-direction: column; gap: 10px; }
 .quiz-opt {
   padding: 14px 18px;
-  border: 2px solid var(--border2);
-  border-bottom: 4px solid var(--border);
+  border: 2px solid var(--border);
   border-radius: var(--radius-sm);
-  cursor: pointer; font-size: 15px; font-weight: 700;
-  background: var(--surface2); color: var(--text);
+  cursor: pointer; font-size: 15px; font-weight: 600;
+  background: var(--bg); color: var(--text);
   text-align: left; transition: all 0.12s;
-  font-family: 'Nunito', sans-serif;
+  font-family: 'Inter', sans-serif;
   display: flex; align-items: center; gap: 12px;
 }
-.quiz-opt:hover:not(:disabled) { border-color: var(--blue); color: var(--blue); transform: translateY(-1px); }
-.quiz-opt:active:not(:disabled) { transform: translateY(0); border-bottom-width: 2px; }
-.quiz-opt .opt-letter {
-  width: 28px; height: 28px; border-radius: 50%;
-  background: var(--border2); color: var(--muted);
-  font-size: 12px; font-weight: 800;
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0;
+.quiz-opt:hover:not(:disabled) { border-color: var(--orange); background: var(--orange-light); }
+.opt-letter {
+  width: 30px; height: 30px; border-radius: 50%;
+  background: var(--surface); color: var(--muted);
+  font-size: 12px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  border: 1.5px solid var(--border);
 }
-.quiz-opt.correct { border-color: var(--green); background: rgba(88,204,2,0.1); color: var(--green); }
-.quiz-opt.correct .opt-letter { background: var(--green); color: #111; }
-.quiz-opt.wrong { border-color: var(--red); background: rgba(255,75,75,0.1); color: var(--red); }
-.quiz-opt.wrong .opt-letter { background: var(--red); color: white; }
+.quiz-opt.correct { border-color: var(--green); background: var(--green-light); color: var(--green); }
+.quiz-opt.correct .opt-letter { background: var(--green); color: white; border-color: var(--green); }
+.quiz-opt.wrong { border-color: #e53935; background: #fff5f5; color: #c62828; }
+.quiz-opt.wrong .opt-letter { background: #e53935; color: white; border-color: #e53935; }
 
 .feedback-bar {
-  padding: 16px 22px; border-radius: var(--radius-sm);
+  padding: 14px 18px; border-radius: var(--radius-sm);
   margin-bottom: 14px; display: none;
-  align-items: center; gap: 12px;
+  align-items: center; gap: 10px;
 }
-.feedback-bar.correct { background: rgba(88,204,2,0.15); border: 2px solid var(--green); }
-.feedback-bar.wrong { background: rgba(255,75,75,0.12); border: 2px solid var(--red); }
-.fb-icon { font-size: 22px; }
-.fb-text { font-size: 14px; font-weight: 700; }
-.fb-text.correct { color: var(--green); }
-.fb-text.wrong { color: var(--red); }
+.feedback-bar.show { display: flex; }
+.feedback-bar.correct { background: var(--green-light); border: 1.5px solid var(--green); }
+.feedback-bar.wrong { background: #fff5f5; border: 1.5px solid #e53935; }
+.fb-icon { font-size: 20px; }
+.fb-msg { font-size: 14px; font-weight: 700; }
+.fb-msg.correct { color: var(--green); }
+.fb-msg.wrong { color: #c62828; }
 
 .quiz-next {
-  width: 100%; padding: 14px;
-  background: var(--green); color: #111;
-  border: none; border-bottom: 4px solid var(--green-dark);
-  border-radius: var(--radius-sm);
-  font-size: 16px; font-weight: 800;
-  cursor: pointer; transition: all 0.15s;
-  font-family: 'Nunito', sans-serif;
+  width: 100%; padding: 15px;
+  background: var(--orange); color: white;
+  border: none; border-radius: 99px;
+  font-size: 16px; font-weight: 700;
+  cursor: pointer; transition: background 0.15s;
+  font-family: 'Inter', sans-serif;
   display: none;
 }
-.quiz-next:hover { transform: translateY(-2px); }
-.quiz-next:active { transform: translateY(0); border-bottom-width: 2px; }
+.quiz-next:hover { background: var(--orange-dark); }
 
 .result-card {
-  background: var(--surface); border: 2px solid var(--border);
-  border-radius: var(--radius); padding: 36px 24px; text-align: center;
+  background: var(--bg); border: 1.5px solid var(--border);
+  border-radius: var(--radius); padding: 40px 28px; text-align: center;
+  box-shadow: var(--shadow-sm);
 }
-.result-trophy { font-size: 3.5rem; margin-bottom: 10px; }
-.result-title { font-size: 1.6rem; font-weight: 900; margin-bottom: 6px; }
-.result-sub { font-size: 14px; color: var(--muted); font-weight: 600; margin-bottom: 24px; }
-.result-stats { display: flex; justify-content: center; gap: 20px; margin-bottom: 24px; }
-.rstat { text-align: center; }
-.rstat-num { font-size: 1.8rem; font-weight: 900; }
-.rstat-label { font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; }
-.btn-green {
-  padding: 14px 32px;
-  background: var(--green); color: #111;
-  border: none; border-bottom: 4px solid var(--green-dark);
-  border-radius: var(--radius-sm); font-size: 16px; font-weight: 800;
-  cursor: pointer; font-family: 'Nunito', sans-serif; transition: all 0.15s;
+.result-trophy { font-size: 3.5rem; margin-bottom: 12px; }
+.result-title { font-family: 'Lora', serif; font-size: 1.8rem; font-weight: 700; margin-bottom: 6px; }
+.result-sub { font-size: 14px; color: var(--muted); font-weight: 500; margin-bottom: 24px; }
+.result-stats { display: flex; justify-content: center; gap: 28px; margin-bottom: 28px; }
+.rstat-num { font-family: 'Lora', serif; font-size: 2rem; font-weight: 700; }
+.rstat-label { font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.07em; }
+.btn-orange {
+  padding: 14px 36px;
+  background: var(--orange); color: white;
+  border: none; border-radius: 99px;
+  font-size: 16px; font-weight: 700;
+  cursor: pointer; font-family: 'Inter', sans-serif;
+  transition: background 0.15s;
 }
-.btn-green:hover { transform: translateY(-2px); }
+.btn-orange:hover { background: var(--orange-dark); }
 
 /* ── CHAT ── */
 .chat-outer {
-  background: var(--surface);
-  border: 2px solid var(--border);
+  background: var(--bg);
+  border: 1.5px solid var(--border);
   border-radius: var(--radius);
   overflow: hidden; display: flex; flex-direction: column;
-  height: calc(100vh - 190px);
-  min-height: 400px; max-height: 680px;
+  height: calc(100vh - 200px);
+  min-height: 400px; max-height: 660px;
+  box-shadow: var(--shadow-sm);
 }
-.chat-messages { flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 12px; }
-.chat-messages::-webkit-scrollbar { width: 4px; }
-.chat-messages::-webkit-scrollbar-track { background: transparent; }
-.chat-messages::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 99px; }
-.cmsg { display: flex; gap: 9px; align-items: flex-end; }
+.quick-prompts { display: flex; flex-wrap: wrap; gap: 6px; padding: 12px 14px 0; }
+.qprompt {
+  padding: 6px 14px;
+  border: 1.5px solid var(--border);
+  border-radius: 99px; font-size: 12px; font-weight: 600;
+  color: var(--muted); cursor: pointer; background: var(--bg);
+  transition: all 0.12s; font-family: 'Inter', sans-serif;
+}
+.qprompt:hover { border-color: var(--orange); color: var(--orange); background: var(--orange-light); }
+.chat-messages { flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 14px; }
+.cmsg { display: flex; gap: 10px; align-items: flex-end; }
 .cmsg.user { flex-direction: row-reverse; }
 .cavatar {
   width: 34px; height: 34px; border-radius: 50%; flex-shrink: 0;
   display: flex; align-items: center; justify-content: center;
-  font-size: 16px; font-weight: 900; border: 2px solid;
+  font-size: 15px; font-weight: 700; border: 1.5px solid var(--border);
+  background: var(--surface);
 }
-.cmsg.bot .cavatar { background: rgba(88,204,2,0.15); border-color: var(--green); color: var(--green); }
-.cmsg.user .cavatar { background: rgba(28,176,246,0.15); border-color: var(--blue); color: var(--blue); }
 .bubble {
   max-width: 78%; padding: 12px 16px;
-  border-radius: 18px; font-size: 14px; font-weight: 600; line-height: 1.6;
+  font-size: 14px; font-weight: 500; line-height: 1.6;
+  border-radius: 18px;
 }
-.cmsg.bot .bubble { background: var(--surface2); border-bottom-left-radius: 4px; color: var(--text); }
-.cmsg.user .bubble { background: var(--blue); color: white; border-bottom-right-radius: 4px; }
-.bubble.loading { color: var(--muted); font-style: italic; }
-
-.quick-prompts { display: flex; flex-wrap: wrap; gap: 6px; padding: 10px 14px 0; }
-.qprompt {
-  padding: 6px 14px;
-  border: 2px solid var(--border2);
-  border-radius: 99px; font-size: 12px; font-weight: 700;
-  color: var(--muted); cursor: pointer; background: var(--surface2);
-  transition: all 0.12s; font-family: 'Nunito', sans-serif;
+.cmsg.bot .bubble {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-bottom-left-radius: 4px; color: var(--text);
 }
-.qprompt:hover { border-color: var(--green); color: var(--green); background: var(--green-glow); }
-
+.cmsg.user .bubble {
+  background: var(--orange); color: white;
+  border-bottom-right-radius: 4px;
+}
+.bubble.loading { color: var(--hint); font-style: italic; }
 .chat-input-area {
   padding: 12px 14px;
-  border-top: 2px solid var(--border);
+  border-top: 1px solid var(--border);
   display: flex; gap: 8px; align-items: center;
+  background: var(--bg);
 }
 .chat-input {
-  flex: 1; padding: 11px 15px;
-  border: 2px solid var(--border2);
-  border-radius: var(--radius-sm);
-  font-size: 14px; font-weight: 600; color: var(--text);
-  background: var(--surface2); font-family: 'Nunito', sans-serif;
+  flex: 1; padding: 11px 16px;
+  border: 1.5px solid var(--border);
+  border-radius: 99px;
+  font-size: 14px; font-weight: 500; color: var(--text);
+  background: var(--surface); font-family: 'Inter', sans-serif;
   outline: none; transition: border-color 0.15s;
 }
-.chat-input:focus { border-color: var(--green); }
+.chat-input:focus { border-color: var(--orange); }
 .chat-input::placeholder { color: var(--hint); }
 .chat-send {
-  padding: 11px 18px;
-  background: var(--green); color: #111;
-  border: none; border-bottom: 3px solid var(--green-dark);
-  border-radius: var(--radius-sm); font-size: 14px; font-weight: 800;
-  cursor: pointer; transition: all 0.12s; font-family: 'Nunito', sans-serif;
-  flex-shrink: 0;
+  padding: 11px 20px;
+  background: var(--orange); color: white;
+  border: none; border-radius: 99px;
+  font-size: 14px; font-weight: 700;
+  cursor: pointer; transition: background 0.12s;
+  font-family: 'Inter', sans-serif; flex-shrink: 0;
 }
-.chat-send:hover { transform: translateY(-1px); }
-.chat-send:active { transform: translateY(0); border-bottom-width: 1px; }
+.chat-send:hover { background: var(--orange-dark); }
 
-/* ── ANIMATIONS ── */
-@keyframes popIn {
-  0% { transform: scale(0.85); opacity: 0; }
-  70% { transform: scale(1.05); }
-  100% { transform: scale(1); opacity: 1; }
+/* ── STATS ROW ── */
+.stats-bar {
+  display: flex; gap: 10px; margin-bottom: 1.75rem;
+  padding: 14px 18px;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
 }
-@keyframes slideUp {
-  from { transform: translateY(16px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
-}
-@keyframes xpShine {
-  0%,100% { opacity: 0.4; }
-  50% { opacity: 1; }
-}
-.pop-in { animation: popIn 0.35s cubic-bezier(0.34,1.56,0.64,1) both; }
-.slide-up { animation: slideUp 0.3s ease both; }
+.sbar-item { display: flex; align-items: center; gap: 7px; font-size: 13px; font-weight: 600; color: var(--muted); }
+.sbar-item strong { color: var(--text); font-size: 15px; }
+.sbar-div { width: 1px; height: 20px; background: var(--border); margin: 0 4px; }
 
 /* ── RESPONSIVE ── */
-@media (max-width: 680px) {
-  .sidebar { display: none; }
-  .layout { padding: 1rem 0.75rem 82px; }
+@media (max-width: 660px) {
+  header { padding: 0 1rem; }
+  .top-nav { display: none; }
+  .layout { padding: 1.25rem 0.9rem 82px; }
   .bottom-nav { display: grid; }
-  .header-pills .hpill:last-child { display: none; }
-  .stats-row { gap: 8px; }
-  .stat-num { font-size: 20px; }
-  .lesson-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
-  .lcard-emoji { font-size: 1.6rem; }
-  .lcard-title { font-size: 13px; }
-  .quiz-q { font-size: 20px; }
+  .greeting { font-size: 1.5rem; }
+  .lesson-cards { grid-template-columns: 1fr; }
+  .lesson-card { min-height: 140px; }
+  .quiz-q { font-size: 1.5rem; }
   .chat-outer { height: calc(100vh - 160px); max-height: none; }
   .word-ru { min-width: 110px; font-size: 14px; }
-  .words-header { gap: 8px; }
-  .start-quiz-btn { width: 100%; margin-top: 4px; text-align: center; }
   .words-header { flex-direction: column; align-items: flex-start; }
+  .start-quiz-btn { width: 100%; text-align: center; }
+  .quick-row { flex-direction: column; }
+  .stats-bar { flex-wrap: wrap; gap: 8px; }
+  .result-stats { gap: 16px; }
 }
 </style>
 </head>
 <body>
 
 <header>
-  <div class="logo"><span class="logo-flag">🇷🇺</span> Ruscha</div>
-  <div class="header-pills">
-    <div class="hpill"><span class="icon">🔥</span> <span id="h-streak">0</span></div>
-    <div class="hpill"><span class="icon">⭐</span> <span id="h-xp">0</span> XP</div>
-    <div class="hpill"><span class="icon">💎</span> <span id="h-done">0</span>/6</div>
+  <div class="logo"><span class="logo-plus">+</span>Ruscha</div>
+  <nav class="top-nav">
+    <button class="tnav-item active" onclick="showPage('home',this)">Bosh sahifa</button>
+    <button class="tnav-item" onclick="showPage('alpha',this)">Alfavit</button>
+    <button class="tnav-item" onclick="showPage('lessons',this)">Darslar</button>
+    <button class="tnav-item" onclick="showPage('quiz',this)">Mashq</button>
+    <button class="tnav-item" onclick="showPage('chat',this)">AI Ustoz</button>
+  </nav>
+  <div class="header-right">
+    <div class="streak-pill"><span class="fire">🔥</span> <span id="h-streak">0</span></div>
   </div>
 </header>
 
-<nav class="bottom-nav" id="bottom-nav">
-  <button class="bnav-item active" onclick="showPage('home',this)"><span class="bicon">🏠</span>Bosh</button>
-  <button class="bnav-item" onclick="showPage('alpha',this)"><span class="bicon">🔤</span>Alfavit</button>
-  <button class="bnav-item" onclick="showPage('lessons',this)"><span class="bicon">📚</span>Darslar</button>
-  <button class="bnav-item" onclick="showPage('quiz',this)"><span class="bicon">🎯</span>Mashq</button>
-  <button class="bnav-item" onclick="showPage('chat',this)"><span class="bicon">🤖</span>Ustoz</button>
+<nav class="bottom-nav">
+  <button class="bnav-item active" onclick="showPage('home',this)"><span class="bnav-icon">🏠</span>Bosh</button>
+  <button class="bnav-item" onclick="showPage('alpha',this)"><span class="bnav-icon">🔤</span>Alfavit</button>
+  <button class="bnav-item" onclick="showPage('lessons',this)"><span class="bnav-icon">📚</span>Darslar</button>
+  <button class="bnav-item" onclick="showPage('quiz',this)"><span class="bnav-icon">🎯</span>Mashq</button>
+  <button class="bnav-item" onclick="showPage('chat',this)"><span class="bnav-icon">🤖</span>Ustoz</button>
 </nav>
 
 <div class="layout">
-  <aside class="sidebar">
-    <div class="snav">
-      <button class="snav-item active" onclick="showPage('home',this)"><span class="sicon">🏠</span> Bosh sahifa</button>
-      <button class="snav-item" onclick="showPage('alpha',this)"><span class="sicon">🔤</span> Alfavit</button>
-      <button class="snav-item" onclick="showPage('lessons',this)"><span class="sicon">📚</span> Darslar <span class="snav-badge" id="done-badge" style="display:none">0</span></button>
-      <button class="snav-item" onclick="showPage('quiz',this)"><span class="sicon">🎯</span> Mashq</button>
-      <button class="snav-item" onclick="showPage('chat',this)"><span class="sicon">🤖</span> AI Ustoz</button>
-    </div>
-    <div class="streak-card">
-      <div class="streak-fire">🔥</div>
-      <div class="streak-num" id="sb-streak">0</div>
-      <div class="streak-label">kunlik streak</div>
-    </div>
-  </aside>
 
-  <main class="main">
+  <!-- HOME -->
+  <div class="page active" id="page-home">
+    <div class="greeting" id="greeting">Salom, Ali!</div>
+    <div class="greeting-sub">Bugun ham bir narsa o'rganamizmi?</div>
 
-    <!-- HOME -->
-    <div class="page active" id="page-home">
-      <div class="xp-section">
-        <div class="xp-top">
-          <span class="xp-label">⭐ Umumiy XP</span>
-          <span class="xp-val" id="xp-text">0 / 100 XP</span>
-        </div>
-        <div class="xp-track"><div class="xp-fill" id="xp-fill" style="width:0%"></div></div>
-      </div>
-
-      <div class="stats-row">
-        <div class="stat-card green"><div class="stat-num" id="s-done">0</div><div class="stat-label">Dars ✓</div></div>
-        <div class="stat-card blue"><div class="stat-num" id="s-score">0</div><div class="stat-label">To'g'ri</div></div>
-        <div class="stat-card orange"><div class="stat-num" id="s-streak">0🔥</div><div class="stat-label">Streak</div></div>
-      </div>
-
-      <div class="section-title">📖 Darslar</div>
-      <div class="lesson-grid">
-        <div class="lesson-card" id="lc-1" onclick="goAlpha()">
-          <span class="lcard-emoji">🔤</span>
-          <div class="lcard-title">Alfavit</div>
-          <div class="lcard-sub">Kirill yozuvi</div>
-          <span class="lcard-count">33 harf</span>
-        </div>
-        <div class="lesson-card" id="lc-2" onclick="openLesson(2)">
-          <span class="lcard-emoji">👋</span>
-          <div class="lcard-title">Salomlashish</div>
-          <div class="lcard-sub">Привет, Здравствуйте</div>
-          <span class="lcard-count">8 ta ibora</span>
-        </div>
-        <div class="lesson-card" id="lc-3" onclick="openLesson(3)">
-          <span class="lcard-emoji">🔢</span>
-          <div class="lcard-title">Raqamlar</div>
-          <div class="lcard-sub">Один, два, три...</div>
-          <span class="lcard-count">11 ta so'z</span>
-        </div>
-        <div class="lesson-card" id="lc-4" onclick="openLesson(4)">
-          <span class="lcard-emoji">🎨</span>
-          <div class="lcard-title">Ranglar</div>
-          <div class="lcard-sub">Красный, синий...</div>
-          <span class="lcard-count">8 ta so'z</span>
-        </div>
-        <div class="lesson-card" id="lc-5" onclick="openLesson(5)">
-          <span class="lcard-emoji">👨‍👩‍👧</span>
-          <div class="lcard-title">Oila</div>
-          <div class="lcard-sub">Мама, папа...</div>
-          <span class="lcard-count">8 ta so'z</span>
-        </div>
-        <div class="lesson-card" id="lc-6" onclick="openLesson(6)">
-          <span class="lcard-emoji">🏠</span>
-          <div class="lcard-title">Uy-joy</div>
-          <div class="lcard-sub">Дом, квартира...</div>
-          <span class="lcard-count">8 ta so'z</span>
-        </div>
-      </div>
-
-      <div class="section-title">⚡ Tezkor boshlash</div>
-      <div class="quick-row">
-        <button class="quick-btn green" onclick="showPage('quiz',null);buildGlobalQuiz()">
-          <span class="qicon">🎯</span> Aralash mashq — barcha so'zlardan
-          <span class="qarrow">›</span>
-        </button>
-        <button class="quick-btn blue" onclick="showPage('chat',null)">
-          <span class="qicon">🤖</span> AI Ustoz bilan gaplash
-          <span class="qarrow">›</span>
-        </button>
-      </div>
+    <div class="stats-bar">
+      <div class="sbar-item"><strong id="s-done">0</strong> dars tugallandi</div>
+      <div class="sbar-div"></div>
+      <div class="sbar-item"><strong id="s-score">0</strong> to'g'ri javob</div>
+      <div class="sbar-div"></div>
+      <div class="sbar-item">🔥 <strong id="s-streak">0</strong> kun streak</div>
+      <div class="sbar-div"></div>
+      <div class="sbar-item">⭐ <strong id="s-xp">0</strong> XP</div>
     </div>
 
-    <!-- ALPHABET -->
-    <div class="page" id="page-alpha">
-      <div style="margin-bottom:1rem">
-        <div class="section-title">🔤 Rus alifbosi — 33 harf</div>
+    <div class="promo-banner" onclick="showPage('quiz',null);buildGlobalQuiz()">
+      <div class="promo-left">
+        <span class="promo-icon">🎯</span>
+        <span class="promo-text">Bugungi aralash mashqni boshlang</span>
       </div>
-      <div class="alpha-grid" id="alpha-grid"></div>
+      <button class="promo-btn">Boshlash</button>
     </div>
 
-    <!-- LESSONS LIST -->
-    <div class="page" id="page-lessons">
-      <div class="section-title">📚 Barcha darslar</div>
-      <div class="lesson-grid">
-        <div class="lesson-card" id="ll-1" onclick="goAlpha()"><span class="lcard-emoji">🔤</span><div class="lcard-title">Alfavit</div><div class="lcard-sub">33 harf</div><span class="lcard-count" id="ld-1">33 harf</span></div>
-        <div class="lesson-card" id="ll-2" onclick="openLesson(2)"><span class="lcard-emoji">👋</span><div class="lcard-title">Salomlashish</div><div class="lcard-sub">8 ta ibora</div><span class="lcard-count" id="ld-2">8 ta so'z</span></div>
-        <div class="lesson-card" id="ll-3" onclick="openLesson(3)"><span class="lcard-emoji">🔢</span><div class="lcard-title">Raqamlar</div><div class="lcard-sub">11 ta so'z</div><span class="lcard-count" id="ld-3">11 ta so'z</span></div>
-        <div class="lesson-card" id="ll-4" onclick="openLesson(4)"><span class="lcard-emoji">🎨</span><div class="lcard-title">Ranglar</div><div class="lcard-sub">8 ta so'z</div><span class="lcard-count" id="ld-4">8 ta so'z</span></div>
-        <div class="lesson-card" id="ll-5" onclick="openLesson(5)"><span class="lcard-emoji">👨‍👩‍👧</span><div class="lcard-title">Oila</div><div class="lcard-sub">8 ta so'z</div><span class="lcard-count" id="ld-5">8 ta so'z</span></div>
-        <div class="lesson-card" id="ll-6" onclick="openLesson(6)"><span class="lcard-emoji">🏠</span><div class="lcard-title">Uy-joy</div><div class="lcard-sub">8 ta so'z</div><span class="lcard-count" id="ld-6">8 ta so'z</span></div>
-      </div>
-    </div>
+    <div class="unit-label">A1 darajasi · 1-bo'lim</div>
+    <div class="unit-title">Rus tilining asoslari</div>
 
-    <!-- WORDS -->
-    <div class="page" id="page-words">
-      <div class="words-header">
-        <button class="back-btn" onclick="showPage('lessons',null)">← Orqaga</button>
-        <h2 id="words-title">So'zlar</h2>
-        <button class="start-quiz-btn" onclick="startLessonQuiz()">Mashq boshlash →</button>
-      </div>
-      <div class="word-list" id="word-list"></div>
-    </div>
-
-    <!-- QUIZ -->
-    <div class="page" id="page-quiz">
-      <div class="quiz-wrap">
-        <div id="quiz-topic-select">
-          <div class="section-title">🎯 Qaysi mavzudan mashq?</div>
-          <div class="quiz-topic-grid">
-            <button class="qtopic-btn" onclick="buildGlobalQuiz()">🎯 Aralash (barcha mavzular) <span class="qtarrow">›</span></button>
-            <button class="qtopic-btn" onclick="buildQuizLesson(2)">👋 Salomlashish <span class="qtarrow">›</span></button>
-            <button class="qtopic-btn" onclick="buildQuizLesson(3)">🔢 Raqamlar <span class="qtarrow">›</span></button>
-            <button class="qtopic-btn" onclick="buildQuizLesson(4)">🎨 Ranglar <span class="qtarrow">›</span></button>
-            <button class="qtopic-btn" onclick="buildQuizLesson(5)">👨‍👩‍👧 Oila <span class="qtarrow">›</span></button>
-            <button class="qtopic-btn" onclick="buildQuizLesson(6)">🏠 Uy-joy <span class="qtarrow">›</span></button>
-          </div>
+    <div class="lesson-cards">
+      <div class="lesson-card" id="lc-2" onclick="openLesson(2)">
+        <div class="done-check">✓</div>
+        <div>
+          <div class="lc-label">Dars 1</div>
+          <div class="lc-title">Salomlashish va tanishish</div>
         </div>
-        <div id="quiz-area" style="display:none"></div>
+        <div class="lc-bottom">
+          <span class="lc-emoji">👋</span>
+          <button class="start-btn" onclick="event.stopPropagation();openLesson(2)">O'rganish</button>
+        </div>
       </div>
-    </div>
-
-    <!-- CHAT -->
-    <div class="page" id="page-chat">
-      <div class="chat-outer">
-        <div class="quick-prompts">
-          <button class="qprompt" onclick="sendQuick(this.textContent)">Привет nima?</button>
-          <button class="qprompt" onclick="sendQuick(this.textContent)">O'zimni tanishtiray</button>
-          <button class="qprompt" onclick="sendQuick(this.textContent)">Raqamlarni o'rgat</button>
-          <button class="qprompt" onclick="sendQuick(this.textContent)">Grammatika tushuntir</button>
+      <div class="lesson-card" id="lc-3" onclick="openLesson(3)">
+        <div class="done-check">✓</div>
+        <div>
+          <div class="lc-label">Dars 2</div>
+          <div class="lc-title">Raqamlar. Один, два, три...</div>
         </div>
-        <div class="chat-messages" id="chat-msgs">
-          <div class="cmsg bot slide-up">
-            <div class="cavatar">🤖</div>
-            <div class="bubble">Salom! Men sizning rus tili ustozingizman 🎓<br><br>Savol bering, so'z so'rang yoki grammatika tushuntirishimni iling. Qo'rqmang — 0 dan boshlash eng yaxshi boshlash!</div>
-          </div>
+        <div class="lc-bottom">
+          <span class="lc-emoji">🔢</span>
+          <button class="start-btn" onclick="event.stopPropagation();openLesson(3)">O'rganish</button>
         </div>
-        <div class="chat-input-area">
-          <input class="chat-input" id="chat-in" type="text" placeholder="Savol yozing..." autocomplete="off" onkeydown="if(event.key==='Enter')sendChat()">
-          <button class="chat-send" onclick="sendChat()">→</button>
+      </div>
+      <div class="lesson-card" id="lc-4" onclick="openLesson(4)">
+        <div class="done-check">✓</div>
+        <div>
+          <div class="lc-label">Dars 3</div>
+          <div class="lc-title">Ranglar. Красный, синий...</div>
+        </div>
+        <div class="lc-bottom">
+          <span class="lc-emoji">🎨</span>
+          <button class="start-btn" onclick="event.stopPropagation();openLesson(4)">O'rganish</button>
+        </div>
+      </div>
+      <div class="lesson-card" id="lc-5" onclick="openLesson(5)">
+        <div class="done-check">✓</div>
+        <div>
+          <div class="lc-label">Dars 4</div>
+          <div class="lc-title">Oila. Мама, папа, брат...</div>
+        </div>
+        <div class="lc-bottom">
+          <span class="lc-emoji">👨‍👩‍👧</span>
+          <button class="start-btn" onclick="event.stopPropagation();openLesson(5)">O'rganish</button>
         </div>
       </div>
     </div>
 
-  </main>
+    <div class="quick-row">
+      <button class="quick-card" onclick="showPage('alpha',null)">
+        <span class="qc-icon">🔤</span>
+        <div><div style="font-weight:700">Alfavitni o'rganish</div><div style="font-size:12px;color:var(--muted);margin-top:2px">33 ta Kirill harfi</div></div>
+        <span class="qc-arrow">›</span>
+      </button>
+      <button class="quick-card" onclick="showPage('chat',null)">
+        <span class="qc-icon">🤖</span>
+        <div><div style="font-weight:700">AI Ustoz bilan gaplash</div><div style="font-size:12px;color:var(--muted);margin-top:2px">Savol bering, tushuntiraman</div></div>
+        <span class="qc-arrow">›</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ALPHABET -->
+  <div class="page" id="page-alpha">
+    <div class="page-title">Rus alifbosi</div>
+    <div class="page-sub">Kirill yozuvida 33 ta harf bor. Har birini bosib ko'ring.</div>
+    <div class="alpha-grid" id="alpha-grid"></div>
+  </div>
+
+  <!-- LESSONS -->
+  <div class="page" id="page-lessons">
+    <div class="page-title">Barcha darslar</div>
+    <div class="page-sub">A1 darajasi · 6 ta mavzu</div>
+    <div class="lessons-list">
+      <div class="lesson-row" onclick="goAlpha()">
+        <span class="lr-emoji">🔤</span>
+        <div class="lr-body"><div class="lr-title">Alfavit</div><div class="lr-sub">33 ta Kirill harfi va talaffuzi</div></div>
+        <span class="lr-badge">33 harf</span>
+        <span class="lr-arrow">›</span>
+      </div>
+      <div class="lesson-row" id="lr-2" onclick="openLesson(2)">
+        <span class="lr-emoji">👋</span>
+        <div class="lr-body"><div class="lr-title">Salomlashish</div><div class="lr-sub">Привет, Здравствуйте va boshqalar</div></div>
+        <span class="lr-badge" id="lbadge-2">8 ta so'z</span>
+        <span class="lr-arrow">›</span>
+      </div>
+      <div class="lesson-row" id="lr-3" onclick="openLesson(3)">
+        <span class="lr-emoji">🔢</span>
+        <div class="lr-body"><div class="lr-title">Raqamlar</div><div class="lr-sub">1 dan 20 gacha</div></div>
+        <span class="lr-badge" id="lbadge-3">11 ta so'z</span>
+        <span class="lr-arrow">›</span>
+      </div>
+      <div class="lesson-row" id="lr-4" onclick="openLesson(4)">
+        <span class="lr-emoji">🎨</span>
+        <div class="lr-body"><div class="lr-title">Ranglar</div><div class="lr-sub">Красный, синий, зелёный...</div></div>
+        <span class="lr-badge" id="lbadge-4">8 ta so'z</span>
+        <span class="lr-arrow">›</span>
+      </div>
+      <div class="lesson-row" id="lr-5" onclick="openLesson(5)">
+        <span class="lr-emoji">👨‍👩‍👧</span>
+        <div class="lr-body"><div class="lr-title">Oila</div><div class="lr-sub">Мама, папа, брат, сестра...</div></div>
+        <span class="lr-badge" id="lbadge-5">8 ta so'z</span>
+        <span class="lr-arrow">›</span>
+      </div>
+      <div class="lesson-row" id="lr-6" onclick="openLesson(6)">
+        <span class="lr-emoji">🏠</span>
+        <div class="lr-body"><div class="lr-title">Uy-joy</div><div class="lr-sub">Дом, квартира, комната...</div></div>
+        <span class="lr-badge" id="lbadge-6">8 ta so'z</span>
+        <span class="lr-arrow">›</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- WORDS -->
+  <div class="page" id="page-words">
+    <div class="words-header">
+      <button class="back-btn" onclick="showPage('lessons',null)">← Orqaga</button>
+      <div class="page-title" id="words-title">So'zlar</div>
+      <button class="start-quiz-btn" onclick="startLessonQuiz()">Mashqni boshlash →</button>
+    </div>
+    <div class="word-list" id="word-list"></div>
+  </div>
+
+  <!-- QUIZ -->
+  <div class="page" id="page-quiz">
+    <div class="quiz-wrap">
+      <div id="quiz-topic-select">
+        <div class="page-title">Mashq</div>
+        <div class="page-sub">Qaysi mavzudan boshlaysiz?</div>
+        <div class="quiz-topic-grid">
+          <button class="qtopic-btn" onclick="buildGlobalQuiz()">🎯 Aralash — barcha mavzular <span class="qtopic-arrow">›</span></button>
+          <button class="qtopic-btn" onclick="buildQuizLesson(2)">👋 Salomlashish <span class="qtopic-arrow">›</span></button>
+          <button class="qtopic-btn" onclick="buildQuizLesson(3)">🔢 Raqamlar <span class="qtopic-arrow">›</span></button>
+          <button class="qtopic-btn" onclick="buildQuizLesson(4)">🎨 Ranglar <span class="qtopic-arrow">›</span></button>
+          <button class="qtopic-btn" onclick="buildQuizLesson(5)">👨‍👩‍👧 Oila <span class="qtopic-arrow">›</span></button>
+          <button class="qtopic-btn" onclick="buildQuizLesson(6)">🏠 Uy-joy <span class="qtopic-arrow">›</span></button>
+        </div>
+      </div>
+      <div id="quiz-area" style="display:none"></div>
+    </div>
+  </div>
+
+  <!-- CHAT -->
+  <div class="page" id="page-chat">
+    <div class="page-title" style="margin-bottom:0.25rem">AI Ustoz</div>
+    <div class="page-sub" style="margin-bottom:1rem">Savol bering, tushuntiraman. Qo'rqmang!</div>
+    <div class="chat-outer">
+      <div class="quick-prompts">
+        <button class="qprompt" onclick="sendQuick(this.textContent)">Привет nima degani?</button>
+        <button class="qprompt" onclick="sendQuick(this.textContent)">O'zimni tanishtiraman</button>
+        <button class="qprompt" onclick="sendQuick(this.textContent)">Raqamlarni o'rgat</button>
+        <button class="qprompt" onclick="sendQuick(this.textContent)">Grammatika tushuntir</button>
+      </div>
+      <div class="chat-messages" id="chat-msgs">
+        <div class="cmsg bot">
+          <div class="cavatar">🤖</div>
+          <div class="bubble">Salom! Men rus tili ustozingizman 🎓<br><br>Savol bering, so'z so'rang yoki grammatika tushuntirishimni so'rang. 0 dan boshlash eng yaxshi boshlash!</div>
+        </div>
+      </div>
+      <div class="chat-input-area">
+        <input class="chat-input" id="chat-in" type="text" placeholder="Savol yozing..." autocomplete="off" onkeydown="if(event.key==='Enter')sendChat()">
+        <button class="chat-send" onclick="sendChat()">Yuborish</button>
+      </div>
+    </div>
+  </div>
+
 </div>
 
 <script>
@@ -708,16 +727,14 @@ const LESSONS={
   5:{title:'Oila',icon:'👨‍👩‍👧',words:[{ru:'Мама',uz:'Ona'},{ru:'Папа',uz:'Ota'},{ru:'Брат',uz:'Aka/uka'},{ru:'Сестра',uz:'Opa/singil'},{ru:'Бабушка',uz:'Buvi'},{ru:'Дедушка',uz:'Bobo'},{ru:'Семья',uz:'Oila'},{ru:'Дети',uz:'Bolalar'}]},
   6:{title:'Uy-joy',icon:'🏠',words:[{ru:'Дом',uz:'Uy'},{ru:'Квартира',uz:'Kvartira'},{ru:'Комната',uz:'Xona'},{ru:'Кухня',uz:'Oshxona'},{ru:'Ванная',uz:'Hammom'},{ru:'Спальня',uz:'Yotoqxona'},{ru:'Стол',uz:'Stol'},{ru:'Стул',uz:'Stul'}]}
 };
-const LETTERS=['A','B','C','D'];
+const OPTS=['A','B','C','D'];
 let state={done:new Set(),score:0,streak:0,xp:0};
 let currentLesson=null,quizData=[],quizIdx=0,quizAnswered=false,quizWrong=0;
 
 function showPage(id,btn){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.querySelectorAll('.snav-item,.bnav-item').forEach(b=>b.classList.remove('active'));
-  const page=document.getElementById('page-'+id);
-  page.classList.add('active');
-  page.style.animation='none';page.offsetHeight;page.style.animation='slideUp 0.25s ease both';
+  document.querySelectorAll('.tnav-item,.bnav-item').forEach(b=>b.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
   if(btn)btn.classList.add('active');
   if(id==='alpha')buildAlpha();
 }
@@ -730,7 +747,7 @@ function buildAlpha(){
     const d=document.createElement('div');
     d.className='alpha-cell';
     d.innerHTML=`<div class="alpha-ru">${U} ${l}</div><div class="alpha-sound">${s}</div>`;
-    d.onclick=()=>{d.style.animation='none';d.offsetHeight;d.style.animation='popIn 0.3s ease both';d.style.borderColor='var(--purple)';setTimeout(()=>d.style.borderColor='',1000);};
+    d.onclick=()=>{d.style.borderColor='var(--orange)';setTimeout(()=>d.style.borderColor='',900);};
     g.appendChild(d);
   });
 }
@@ -759,10 +776,10 @@ function startLessonQuiz(){
 
 function markDone(id){
   if(state.done.has(id))return;
-  state.done.add(id);
-  state.xp+=20;
-  ['lc-','ll-'].forEach(p=>{const el=document.getElementById(p+id);if(el)el.classList.add('done');});
-  ['ld-'].forEach(p=>{const el=document.getElementById(p+id);if(el)el.textContent='✓ Tugallandi';});
+  state.done.add(id);state.xp+=20;
+  const lc=document.getElementById('lc-'+id);if(lc)lc.classList.add('done');
+  const lr=document.getElementById('lr-'+id);if(lr)lr.style.background='var(--green-light)';
+  const lb=document.getElementById('lbadge-'+id);if(lb){lb.classList.add('done');lb.textContent='✓ Tugallandi';}
   updateStats();
 }
 
@@ -770,29 +787,18 @@ function updateStats(){
   const d=state.done.size;
   document.getElementById('s-done').textContent=d;
   document.getElementById('s-score').textContent=state.score;
-  document.getElementById('s-streak').textContent=state.streak+'🔥';
+  document.getElementById('s-streak').textContent=state.streak;
+  document.getElementById('s-xp').textContent=state.xp;
   document.getElementById('h-streak').textContent=state.streak;
-  document.getElementById('h-xp').textContent=state.xp;
-  document.getElementById('h-done').textContent=d;
-  document.getElementById('sb-streak').textContent=state.streak;
-  const pct=Math.min(100,Math.round((state.xp%100)));
-  document.getElementById('xp-fill').style.width=pct+'%';
-  document.getElementById('xp-text').textContent=state.xp+' XP';
-  const badge=document.getElementById('done-badge');
-  if(d>0){badge.style.display='';badge.textContent=d;}else badge.style.display='none';
 }
 
 function shuffle(a){return[...a].sort(()=>Math.random()-0.5);}
 
 function buildGlobalQuiz(){
   const all=[];Object.values(LESSONS).forEach(l=>l.words.forEach(w=>all.push(w)));
-  quizData=shuffle(all).slice(0,8);
-  startQuiz();
+  quizData=shuffle(all).slice(0,8);startQuiz();
 }
-function buildQuizLesson(id){
-  quizData=shuffle(LESSONS[id].words);
-  startQuiz();
-}
+function buildQuizLesson(id){quizData=shuffle(LESSONS[id].words);startQuiz();}
 function startQuiz(){
   quizIdx=0;quizAnswered=false;quizWrong=0;
   document.getElementById('quiz-topic-select').style.display='none';
@@ -803,18 +809,19 @@ function startQuiz(){
 function renderQuiz(){
   const area=document.getElementById('quiz-area');
   if(quizIdx>=quizData.length){
-    const pct=Math.round(((quizData.length-quizWrong)/quizData.length)*100);
+    const corr=quizData.length-quizWrong;
+    const pct=Math.round((corr/quizData.length)*100);
     const trophy=pct>=80?'🏆':pct>=50?'🥈':'💪';
-    area.innerHTML=`<div class="result-card pop-in">
+    area.innerHTML=`<div class="result-card">
       <div class="result-trophy">${trophy}</div>
       <div class="result-title">Barakalla!</div>
       <div class="result-sub">${quizData.length} ta savoldan o'tdingiz</div>
       <div class="result-stats">
-        <div class="rstat"><div class="rstat-num" style="color:var(--green)">${quizData.length-quizWrong}</div><div class="rstat-label">To'g'ri</div></div>
-        <div class="rstat"><div class="rstat-num" style="color:var(--red)">${quizWrong}</div><div class="rstat-label">Xato</div></div>
-        <div class="rstat"><div class="rstat-num" style="color:var(--yellow)">${pct}%</div><div class="rstat-label">Natija</div></div>
+        <div class="rstat"><div class="rstat-num" style="color:var(--green)">${corr}</div><div class="rstat-label">To'g'ri</div></div>
+        <div class="rstat"><div class="rstat-num" style="color:#e53935">${quizWrong}</div><div class="rstat-label">Xato</div></div>
+        <div class="rstat"><div class="rstat-num" style="color:var(--orange)">${pct}%</div><div class="rstat-label">Natija</div></div>
       </div>
-      <button class="btn-green" onclick="document.getElementById('quiz-topic-select').style.display='block';document.getElementById('quiz-area').style.display='none'">Yana o'ynash</button>
+      <button class="btn-orange" onclick="document.getElementById('quiz-topic-select').style.display='block';document.getElementById('quiz-area').style.display='none'">Yana o'ynash</button>
     </div>`;
     return;
   }
@@ -822,25 +829,23 @@ function renderQuiz(){
   const all=[];Object.values(LESSONS).forEach(l=>l.words.forEach(w=>all.push(w)));
   const wrongs=shuffle(all.filter(w=>w.uz!==q.uz)).slice(0,3).map(w=>w.uz);
   const opts=shuffle([q.uz,...wrongs]);
-  const dots=quizData.map((_,i)=>{
-    let cls='quiz-prog-dot';
-    if(i<quizIdx)cls+=' done';
-    else if(i===quizIdx)cls+=' current';
-    return`<div class="${cls}"></div>`;
-  }).join('');
+  const pct=Math.round((quizIdx/quizData.length)*100);
   area.innerHTML=`
-    <div class="quiz-prog-row">${dots}</div>
-    <div class="quiz-card slide-up">
-      <div class="quiz-tag">So'zni toping</div>
+    <div class="quiz-prog-wrap">
+      <div class="quiz-prog-info"><span>${quizIdx+1} / ${quizData.length}</span><span>${pct}%</span></div>
+      <div class="quiz-prog-track"><div class="quiz-prog-fill" style="width:${pct}%"></div></div>
+    </div>
+    <div class="quiz-card">
+      <div class="quiz-eyebrow">So'zni toping</div>
       <div class="quiz-q">${q.ru}</div>
       <div class="quiz-opts">
         ${opts.map((o,i)=>`<button class="quiz-opt" onclick="checkAns(this,'${o.replace(/'/g,"\\'")}','${q.uz.replace(/'/g,"\\'")}')">
-          <span class="opt-letter">${LETTERS[i]}</span>${o}
+          <span class="opt-letter">${OPTS[i]}</span>${o}
         </button>`).join('')}
       </div>
     </div>
     <div class="feedback-bar" id="fb"></div>
-    <button class="quiz-next" id="quiz-next" onclick="quizIdx++;renderQuiz()">Davom etish →</button>`;
+    <button class="quiz-next" id="qnext" onclick="quizIdx++;renderQuiz()">Davom etish →</button>`;
   quizAnswered=false;
 }
 
@@ -852,18 +857,16 @@ function checkAns(el,chosen,correct){
   if(chosen===correct){
     el.classList.add('correct');
     state.score++;state.streak++;state.xp+=10;
-    fb.className='feedback-bar correct';
-    fb.style.display='flex';
-    fb.innerHTML=`<span class="fb-icon">🎉</span><span class="fb-text correct">Zo'r! To'g'ri javob!</span>`;
+    fb.className='feedback-bar correct show';
+    fb.innerHTML=`<span class="fb-icon">✅</span><span class="fb-msg correct">To'g'ri! Zo'r!</span>`;
   } else {
     el.classList.add('wrong');state.streak=0;quizWrong++;state.xp+=2;
-    document.querySelectorAll('.quiz-opt').forEach(b=>{if(b.textContent.trim().slice(1)===correct||b.textContent.includes(correct))b.classList.add('correct');});
-    fb.className='feedback-bar wrong';
-    fb.style.display='flex';
-    fb.innerHTML=`<span class="fb-icon">💪</span><span class="fb-text wrong">To'g'ri javob: ${correct}</span>`;
+    document.querySelectorAll('.quiz-opt').forEach(b=>{if(b.textContent.trim().includes(correct))b.classList.add('correct');});
+    fb.className='feedback-bar wrong show';
+    fb.innerHTML=`<span class="fb-icon">❌</span><span class="fb-msg wrong">To'g'ri javob: ${correct}</span>`;
   }
   updateStats();
-  document.getElementById('quiz-next').style.display='block';
+  document.getElementById('qnext').style.display='block';
 }
 
 const SYS=`Sen rus tili o'qituvchisisiz. Foydalanuvchi o'zbek tilida gaplashadi, rus tilini 0 dan o'rganmoqda.
@@ -874,25 +877,24 @@ async function sendChat(){
   const text=inp.value.trim();if(!text)return;
   inp.value='';
   addMsg('user',text);
-  const loadBub=addMsg('bot','Yozmoqda...',true);
+  const lb=addMsg('bot','Yozmoqda...',true);
   try{
     const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:1000,system:SYS,messages:[{role:'user',content:text}]})});
     const data=await res.json();
-    loadBub.classList.remove('loading');
-    loadBub.textContent=data.content?.[0]?.text||'Xato yuz berdi.';
-  }catch{loadBub.classList.remove('loading');loadBub.textContent='Xato yuz berdi.';}
+    lb.classList.remove('loading');
+    lb.textContent=data.content?.[0]?.text||'Xato yuz berdi.';
+  }catch{lb.classList.remove('loading');lb.textContent='Xato yuz berdi.';}
   document.getElementById('chat-msgs').scrollTop=99999;
 }
 function sendQuick(t){document.getElementById('chat-in').value=t;sendChat();}
 function addMsg(role,text,loading=false){
   const msgs=document.getElementById('chat-msgs');
-  const wrap=document.createElement('div');wrap.className='cmsg '+role+' slide-up';
+  const wrap=document.createElement('div');wrap.className='cmsg '+role;
   const av=document.createElement('div');av.className='cavatar';av.textContent=role==='bot'?'🤖':'👤';
   const bub=document.createElement('div');bub.className='bubble'+(loading?' loading':'');bub.textContent=text;
   wrap.appendChild(av);wrap.appendChild(bub);msgs.appendChild(wrap);
   msgs.scrollTop=99999;return bub;
 }
-
 buildAlpha();
 </script>
 </body>
