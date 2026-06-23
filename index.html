@@ -90,12 +90,12 @@ header {
 }
 .bnav-item {
   display: flex; flex-direction: column; align-items: center;
-  gap: 3px; padding: 6px 4px;
-  font-size: 10px; font-weight: 600; color: var(--hint);
+  gap: 3px; padding: 6px 2px;
+  font-size: 9.5px; font-weight: 600; color: var(--hint);
   cursor: pointer; border: none; background: none;
   transition: color 0.15s; font-family: 'Inter', sans-serif;
 }
-.bnav-icon { font-size: 20px; }
+.bnav-icon { font-size: 19px; }
 .bnav-item.active { color: var(--orange); }
 
 /* ── LAYOUT ── */
@@ -479,7 +479,69 @@ header {
 .sbar-item strong { color: var(--text); font-size: 15px; }
 .sbar-div { width: 1px; height: 20px; background: var(--border); margin: 0 4px; }
 
-/* ── RESPONSIVE ── */
+/* ── PLAN PAGE ── */
+.plan-overview {
+  background: var(--orange-light);
+  border: 1.5px solid var(--orange);
+  border-radius: var(--radius);
+  padding: 18px 20px; margin-bottom: 1.5rem;
+}
+.plan-ov-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+.plan-ov-label { font-size: 13px; font-weight: 700; color: var(--orange-dark); }
+.plan-ov-pct { font-family: 'Lora', serif; font-size: 1.4rem; font-weight: 700; color: var(--orange); }
+.plan-ov-track { height: 10px; background: white; border-radius: 99px; overflow: hidden; border: 1px solid var(--orange); }
+.plan-ov-fill { height: 100%; background: var(--orange); border-radius: 99px; transition: width 0.5s ease; }
+.plan-ov-sub { font-size: 12px; color: var(--muted); font-weight: 500; margin-top: 10px; }
+
+.month-block { margin-bottom: 14px; }
+.month-head {
+  display: flex; align-items: center; gap: 12px;
+  padding: 16px 18px;
+  background: var(--surface); border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  cursor: pointer; transition: all 0.15s; user-select: none;
+}
+.month-head:hover { border-color: #ccc; }
+.month-head.open { border-color: var(--orange); background: var(--orange-light); border-bottom-left-radius: 0; border-bottom-right-radius: 0; }
+.month-emoji { font-size: 1.4rem; }
+.month-info { flex: 1; }
+.month-title { font-family: 'Lora', serif; font-size: 1.1rem; font-weight: 700; color: var(--text); }
+.month-goal { font-size: 12px; color: var(--muted); margin-top: 2px; font-weight: 500; }
+.month-prog { font-size: 12px; font-weight: 700; color: var(--orange); white-space: nowrap; }
+.month-chevron { color: var(--hint); font-size: 1.1rem; transition: transform 0.2s; }
+.month-head.open .month-chevron { transform: rotate(90deg); }
+.month-body {
+  display: none;
+  border: 1.5px solid var(--orange); border-top: none;
+  border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+  overflow: hidden;
+}
+.month-body.open { display: block; }
+.week-block { border-bottom: 1px solid var(--border); }
+.week-block:last-child { border-bottom: none; }
+.week-title {
+  font-size: 13px; font-weight: 700; color: var(--text);
+  padding: 12px 18px 6px; background: var(--bg);
+}
+.week-title .wk-label { color: var(--orange); }
+.task-item {
+  display: flex; align-items: flex-start; gap: 11px;
+  padding: 9px 18px;
+  cursor: pointer; transition: background 0.1s;
+  background: var(--bg);
+}
+.task-item:hover { background: var(--surface); }
+.task-check {
+  width: 22px; height: 22px; border-radius: 6px;
+  border: 2px solid var(--border); flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; transition: all 0.15s; margin-top: 1px;
+}
+.task-item.done .task-check { background: var(--green); border-color: var(--green); color: white; }
+.task-text { font-size: 14px; font-weight: 500; color: var(--text); line-height: 1.5; }
+.task-item.done .task-text { color: var(--hint); text-decoration: line-through; }
+
+
 @media (max-width: 660px) {
   header { padding: 0 1rem; }
   .top-nav { display: none; }
@@ -507,6 +569,7 @@ header {
     <button class="tnav-item active" onclick="showPage('home',this)">Bosh sahifa</button>
     <button class="tnav-item" onclick="showPage('alpha',this)">Alfavit</button>
     <button class="tnav-item" onclick="showPage('lessons',this)">Darslar</button>
+    <button class="tnav-item" onclick="showPage('plan',this)">Reja</button>
     <button class="tnav-item" onclick="showPage('quiz',this)">Mashq</button>
     <button class="tnav-item" onclick="showPage('chat',this)">AI Ustoz</button>
   </nav>
@@ -518,6 +581,7 @@ header {
 <nav class="bottom-nav">
   <button class="bnav-item active" onclick="showPage('home',this)"><span class="bnav-icon">🏠</span>Bosh</button>
   <button class="bnav-item" onclick="showPage('alpha',this)"><span class="bnav-icon">🔤</span>Alfavit</button>
+  <button class="bnav-item" onclick="showPage('plan',this)"><span class="bnav-icon">🗺️</span>Reja</button>
   <button class="bnav-item" onclick="showPage('lessons',this)"><span class="bnav-icon">📚</span>Darslar</button>
   <button class="bnav-item" onclick="showPage('quiz',this)"><span class="bnav-icon">🎯</span>Mashq</button>
   <button class="bnav-item" onclick="showPage('chat',this)"><span class="bnav-icon">🤖</span>Ustoz</button>
@@ -671,6 +735,21 @@ header {
       <button class="start-quiz-btn" onclick="startLessonQuiz()">Mashqni boshlash →</button>
     </div>
     <div class="word-list" id="word-list"></div>
+  </div>
+
+  <!-- PLAN -->
+  <div class="page" id="page-plan">
+    <div class="page-title">4 oylik o'quv rejasi</div>
+    <div class="page-sub">0 dan erkin gaplashish darajasiga (A2–B1) · kuniga 1 soat</div>
+    <div class="plan-overview">
+      <div class="plan-ov-top">
+        <span class="plan-ov-label">📊 Umumiy progress</span>
+        <span class="plan-ov-pct" id="plan-pct">0%</span>
+      </div>
+      <div class="plan-ov-track"><div class="plan-ov-fill" id="plan-fill" style="width:0%"></div></div>
+      <div class="plan-ov-sub" id="plan-count">0 / 0 vazifa bajarildi</div>
+    </div>
+    <div id="plan-months"></div>
   </div>
 
   <!-- QUIZ -->
@@ -895,6 +974,83 @@ function addMsg(role,text,loading=false){
   wrap.appendChild(av);wrap.appendChild(bub);msgs.appendChild(wrap);
   msgs.scrollTop=99999;return bub;
 }
+
+// ── PLAN DATA ──
+const PLAN=[
+  {emoji:'🌱',title:'1-oy — Tirik qolish ruschasi',goal:"O'zini tanishtirish, oddiy savol-javob · 300 so'z",weeks:[
+    {label:'1-hafta',name:'Alifbo va tovushlar',tasks:['Kirill alifbosini avtomatik o\'qish (Alfavit bo\'limi)','Urg\'u (ударение) — so\'z urg\'usini mashq qilish','Tovushlar: ы, щ, ж, х ni o\'rganish','Kuniga 10 ta yangi so\'z']},
+    {label:'2-hafta',name:'Salomlashish va tanishish',tasks:['Привет / Здравствуйте, Как дела? iboralari','"Я студент / Я из Узбекистана" tuzilishi','1 daqiqalik o\'zi haqida gapirish','AI Ustoz bilan tanishuvni mashq qilish']},
+    {label:'3-hafta',name:'Hozirgi zamon va savollar',tasks:['Present tense: я работаю, ты работаешь','Savol so\'zlari: Кто? Что? Где? Как? Когда?','Ot jinslari bilan tanishish','Oddiy savol-javob mashqi']},
+    {label:'4-hafta',name:'Kundalik so\'zlar + birinchi suhbat',tasks:['Raqamlar, kunlar, oylar','Oila va ranglar darslari','AI Ustoz bilan 5 daqiqalik suhbat','"Russian with Max" tinglashni boshlash']},
+  ]},
+  {emoji:'🏙️',title:'2-oy — Kundalik vaziyatlar',goal:"Do'kon, kafe, ko'cha vaziyatlari · 600 so'z",weeks:[
+    {label:'5-hafta',name:'O\'tgan zamon',tasks:['Past tense: был, была, было + -л','"Kecha nima qildim" haqida gapirish','Kechagi kunni 5 jumlada aytib berish']},
+    {label:'6-hafta',name:'Tushum kelishigi (Винительный)',tasks:['Я хочу кофе, Я люблю музыку','Kelishikni ibora sifatida yodlash','Do\'kon/kafe dialogini mashq qilish']},
+    {label:'7-hafta',name:'O\'rin kelishigi (Предложный)',tasks:['"Qayerda?" — в Ташкенте, на работе','Joylar haqida gapirish','"Men qayerda yashayman" suhbati']},
+    {label:'8-hafta',name:'Kundalik dialoglar',tasks:['Yo\'l so\'rash, narx so\'rash, buyurtma','AI Ustoz bilan "kafe", "taksi" rollari','"Easy Russian" ko\'cha intervyularini tinglash']},
+  ]},
+  {emoji:'💬',title:'3-oy — Bog\'langan nutq',goal:"Fikr bildirish, hikoya qilish · 1000+ so'z",weeks:[
+    {label:'9-hafta',name:'Qaratqich kelishigi (Родительный)',tasks:['У меня нет времени, книга брата','Eng ko\'p ishlatiladigan kelishik','"Menda nima bor/yo\'q" gapirish']},
+    {label:'10-hafta',name:'Jo\'nalish + Vosita kelishigi',tasks:['Кому? — Я звоню маме','С кем? — Я говорю с другом','"Kim bilan / kimga" jumlalar']},
+    {label:'11-hafta',name:'Fe\'l ko\'rinishlari (Виды)',tasks:['Perfective / Imperfective farqi','делать / сделать (jarayon vs natija)','Ibora orqali o\'rganish — sabr qiling']},
+    {label:'12-hafta',name:'Fikr va hikoya',tasks:['Я думаю, что... / Мне кажется...','Sevimli film/kitob haqida gapirish','AI Ustoz bilan 10 daqiqalik fikr suhbati']},
+  ]},
+  {emoji:'🚀',title:'4-oy — Ravonlik',goal:"15 daqiqa erkin suhbat, tarjimasiz · B1",weeks:[
+    {label:'13-hafta',name:'Mustahkamlash',tasks:['Barcha kelishik va zamonlarni takrorlash','Zaif joylarni aniqlab, ularga urg\'u','Rus tilida o\'ylashga harakat qilish']},
+    {label:'14-hafta',name:'Real tinglash',tasks:['Subtitrsiz video/film ko\'rish','Shadowing — eshitganni darhol qaytarish','Epizod mazmunini aytib berish']},
+    {label:'15-hafta',name:'Erkin muloqot',tasks:['italki/Preply repetitor yoki HelloTalk','Real odam bilan gaplashish','Notanish odam bilan 10 daqiqa suhbat']},
+    {label:'16-hafta',name:'Yakuniy bosqich',tasks:['Turli mavzularda erkin gapirish','AI Ustoz bilan murakkab suhbatlar','15 daqiqa to\'xtamasdan, tarjimasiz suhbat']},
+  ]},
+];
+let planDone=new Set();
+let planOpenMonth=0;
+
+function buildPlan(){
+  const cont=document.getElementById('plan-months');
+  cont.innerHTML='';
+  let totalTasks=0;
+  PLAN.forEach((m,mi)=>{
+    let mTotal=0,mDone=0;
+    m.weeks.forEach((w,wi)=>w.tasks.forEach((t,ti)=>{mTotal++;totalTasks++;if(planDone.has(mi+'-'+wi+'-'+ti))mDone++;}));
+    const block=document.createElement('div');
+    block.className='month-block';
+    const weeksHtml=m.weeks.map((w,wi)=>`
+      <div class="week-block">
+        <div class="week-title"><span class="wk-label">${w.label}</span> — ${w.name}</div>
+        ${w.tasks.map((t,ti)=>{
+          const key=mi+'-'+wi+'-'+ti;
+          const done=planDone.has(key)?'done':'';
+          return `<div class="task-item ${done}" onclick="toggleTask('${key}')">
+            <div class="task-check">${planDone.has(key)?'✓':''}</div>
+            <div class="task-text">${t}</div>
+          </div>`;
+        }).join('')}
+      </div>`).join('');
+    block.innerHTML=`
+      <div class="month-head ${mi===planOpenMonth?'open':''}" onclick="toggleMonth(${mi})">
+        <span class="month-emoji">${m.emoji}</span>
+        <div class="month-info">
+          <div class="month-title">${m.title}</div>
+          <div class="month-goal">${m.goal}</div>
+        </div>
+        <span class="month-prog">${mDone}/${mTotal}</span>
+        <span class="month-chevron">›</span>
+      </div>
+      <div class="month-body ${mi===planOpenMonth?'open':''}">${weeksHtml}</div>`;
+    cont.appendChild(block);
+  });
+  const pct=totalTasks?Math.round((planDone.size/totalTasks)*100):0;
+  document.getElementById('plan-pct').textContent=pct+'%';
+  document.getElementById('plan-fill').style.width=pct+'%';
+  document.getElementById('plan-count').textContent=planDone.size+' / '+totalTasks+' vazifa bajarildi';
+}
+function toggleMonth(mi){planOpenMonth=(planOpenMonth===mi?-1:mi);buildPlan();}
+function toggleTask(key){
+  if(planDone.has(key))planDone.delete(key);else planDone.add(key);
+  buildPlan();
+}
+
+buildPlan();
 buildAlpha();
 </script>
 </body>
