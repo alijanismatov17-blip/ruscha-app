@@ -1,0 +1,37 @@
+export default async function handler(req, res) {
+  if (req.method !== 'POST') {
+    res.status(405).json({ error: 'Faqat POST' });
+    return;
+  }
+  const apiKey = process.env.ANTHROPIC_API_KEY;
+  if (!apiKey) {
+    res.status(500).json({ error: 'API key sozlanmagan' });
+    return;
+  }
+  try {
+    const body = typeof req.body === 'string' ? JSON.parse(req.body) : (req.body || {});
+    const { messages, system, max_tokens } = body;
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+        'x-api-key': apiKey,
+        'anthropic-version': '2023-06-01'
+      },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-6',
+        max_tokens: max_tokens || 1000,
+        system: system || '',
+        messages: messages
+      })
+    });
+    const data = await response.json();
+    if (!response.ok) {
+      res.status(response.status).json({ error: data?.error?.message || 'Xato' });
+      return;
+    }
+    res.status(200).json(data);
+  } catch (e) {
+    res.status(500).json({ error: String(e) });
+  }
+}
